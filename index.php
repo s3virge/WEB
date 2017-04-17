@@ -75,7 +75,8 @@
         </div>
 
         <!--Скрытое по умолчанию модальное окно-->
-        <div id="win" style="display:none;">
+<!--        <div id="win" style="display:none;">-->
+        <div id="win" >
             <div class="overlap"></div>
             <div class="modal_wnd">
                 <h2>Добавить нововго сотрудника</h2>
@@ -84,7 +85,8 @@
                     <input type="text" placeholder="Мобильный телефон" name="CellPhon">
                     <input type="text" placeholder="Телефон" name="Phone"
                 </div>
-                <button onClick="getElementById('win').style.display='none';">закрыть</button>
+                <button onClick="getElementById('win').style.display='none';">Закрыть</button>
+                <button>Добавить</button>
             </div>
         </div>
 

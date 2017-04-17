@@ -50,3 +50,20 @@
     background: WhiteSmoke;
 }
 
+input[type="text"] {
+    border: 1px solid #cccccc; /*цвет рамки*/
+    border-radius: 3px; /*закругление углов (общее)*/
+    height: 2em; /*высота на свое усмотрение*/
+    width:100%; /*ширина на свое усмотрение*/
+    color: #0a4f21; /*цвет шрифта в обычном состоянии*/
+    font-size: 1em; /*Размер шрифта*/
+    font-family: Tahoma; /*Стиль шрифта*/
+    margin-top: 1em;
+}
+
+input[type="text"]::-webkit-input-placeholder {
+    color: #c3c3c3;
+}
+input[type="text"]::-moz-placeholder {
+    color: #c3c3c3;
+}
