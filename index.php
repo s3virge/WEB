@@ -22,9 +22,24 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+        <script>console.log("index.php was load");</script>
+
         <!--=============================================================================-->
         <!--                  Add your site or application content here                  -->
         <!--=============================================================================-->
+        <?php
+
+            if($_POST['action'] == 'call_this') {
+                echo "BUtton Add was pressed <br>";
+            }
+
+        if($_POST['name'] == 'John') {
+            echo "name = Jhone <br>";
+        }
+
+
+        ?>
+
         <div id="wrap">
             <div id="employee_list">
                 <table>
@@ -82,11 +97,11 @@
                 <h2>Добавить нововго сотрудника</h2>
                 <div id="modal_wnd_content">
                     <input type="text" autofocus placeholder="ФИО" name="FIO">
-                    <input type="text" placeholder="Мобильный телефон" name="CellPhon">
+                    <input type="text" placeholder="Мобильный телефон" name="CellPhone">
                     <input type="text" placeholder="Телефон" name="Phone"
                 </div>
                 <button onClick="getElementById('win').style.display='none';">Закрыть</button>
-                <button>Добавить</button>
+                <button onClick="myAjax()">Добавить</button>
             </div>
         </div>
 
@@ -114,6 +129,26 @@
                     $("#employee_list").html(result);
                 }});
             });
+        </script>
+
+        <script>
+            function myAjax() {
+                /*$.ajax({
+                    type: "POST",
+                    url: 'index.php',
+                    data:{action:'call_this'},
+                    success:function(html) {
+                        alert(html);
+                    }
+                });*/
+                $.ajax({
+                    method: 'POST',
+//                    url: 'index.php',
+//                    async: 'false',
+                    data: { name: "John", location: "Boston" },
+                    success:function(){alert("btn was pressed")}
+                });
+            }
         </script>
 
         <!-- Make table row selected -->
