@@ -22,23 +22,11 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <script>console.log("index.php was load");</script>
+        <script>console.log("index.php was loaded");</script>
 
         <!--=============================================================================-->
         <!--                  Add your site or application content here                  -->
         <!--=============================================================================-->
-        <?php
-
-            if($_POST['action'] == 'call_this') {
-                echo "BUtton Add was pressed <br>";
-            }
-
-        if($_POST['name'] == 'John') {
-            echo "name = Jhone <br>";
-        }
-
-
-        ?>
 
         <div id="wrap">
             <div id="employee_list">
@@ -101,7 +89,7 @@
                     <input type="text" placeholder="Мобильный телефон" name="CellPhone">
                     <input type="text" placeholder="Телефон" name="Phone"
                 </div>
-                <!--<button onClick="getElementById('win').style.display='none';">Закрыть</button>-->
+                <button onClick="getElementById('win').style.display='none';">Отмена</button>
                 <button onClick="myAjax()">Добавить</button>
             </div>
         </div>
@@ -134,21 +122,18 @@
 
         <script>
             function myAjax() {
-                /*$.ajax({
-                    type: "POST",
-                    url: 'index.php',
-                    data:{action:'call_this'},
-                    success:function(html) {
-                        alert(html);
-                    }
-                });*/
-                
+                //нужно получить данные из полей ввода и передать их скрипту который
+                //запушет их в файл
+                //затем перечитать файл что бы показать новые данные
+
                 $.ajax({
                     method: 'POST',
-//                    url: 'index.php',
-//                    async: 'false',
+                    url: 'form.php',
                     data: { name: "John", location: "Boston" },
-                    success:function(){getElementById('win').style.display='none';}
+                    success:function(msg ){
+                        alert( "Data Saved: " + msg );
+                         $('#win').attr('style','display:none');
+                    }
                 });
             }
         </script>
