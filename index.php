@@ -91,6 +91,7 @@
 
         <!--Скрытое по умолчанию модальное окно-->
 <!--        <div id="win" style="display:none;">-->
+        <!-- <form> </form>-->
         <div id="win" >
             <div class="overlap"></div>
             <div class="modal_wnd">
@@ -100,7 +101,7 @@
                     <input type="text" placeholder="Мобильный телефон" name="CellPhone">
                     <input type="text" placeholder="Телефон" name="Phone"
                 </div>
-                <button onClick="getElementById('win').style.display='none';">Закрыть</button>
+                <!--<button onClick="getElementById('win').style.display='none';">Закрыть</button>-->
                 <button onClick="myAjax()">Добавить</button>
             </div>
         </div>
@@ -141,12 +142,13 @@
                         alert(html);
                     }
                 });*/
+                
                 $.ajax({
                     method: 'POST',
 //                    url: 'index.php',
 //                    async: 'false',
                     data: { name: "John", location: "Boston" },
-                    success:function(){alert("btn was pressed")}
+                    success:function(){getElementById('win').style.display='none';}
                 });
             }
         </script>
