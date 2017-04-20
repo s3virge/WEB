@@ -80,7 +80,7 @@
         <!--Скрытое по умолчанию модальное окно-->
 <!--        <div id="win" style="display:none;">-->
         <!-- <form> </form>-->
-        <div id="win" >
+        <div id="win" style="display:block">
             <div class="overlap"></div>
             <div class="modal_wnd">
                 <h2>Добавить нововго сотрудника</h2>
@@ -123,7 +123,12 @@
         <script>
             function myAjax() {
                 //нужно получить данные из полей ввода и передать их скрипту который
-                //запишет их в файл
+                var form = $( '#modal_wnd_content' );
+                var FIO = form.find( "input[name='FIO']" ).val();
+                var CellPhone = form.find( "input[name='CellPhone']" ).val();
+                var Phone = form.find( "input[name='Phone']" ).val();
+
+1                //запишет их в файл
                 //затем перечитать файл что бы показать новые данные
 
                 $.ajax({
