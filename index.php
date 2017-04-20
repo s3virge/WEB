@@ -87,7 +87,7 @@
                 <div id="modal_wnd_content">
                     <input type="text" autofocus placeholder="ФИО" name="FIO">
                     <input type="text" placeholder="Мобильный телефон" name="CellPhone">
-                    <input type="text" placeholder="Телефон" name="Phone"
+                    <input type="text" placeholder="Телефон" name="Phone">
                 </div>
                 <button onClick="getElementById('win').style.display='none';">Отмена</button>
                 <button onClick="myAjax()">Добавить</button>
@@ -123,7 +123,7 @@
         <script>
             function myAjax() {
                 //нужно получить данные из полей ввода и передать их скрипту который
-                //запушет их в файл
+                //запишет их в файл
                 //затем перечитать файл что бы показать новые данные
 
                 $.ajax({
