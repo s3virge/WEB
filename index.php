@@ -78,19 +78,17 @@
         </div>
 
         <!--Скрытое по умолчанию модальное окно-->
-<!--        <div id="win" style="display:none;">-->
-        <!-- <form> </form>-->
-        <div id="win" style="display:block">
+        <div id="win" style="display: none">
             <div class="overlap"></div>
             <div class="modal_wnd">
                 <h2>Добавить нововго сотрудника</h2>
                 <div id="modal_wnd_content">
                     <input type="text" autofocus placeholder="ФИО" name="FIO">
-                    <span class="error">*</span>
+                    <div id="fio_error">*</div>
                     <input type="text" placeholder="Мобильный телефон" name="CellPhone">
-                    <span class="error">*</span>
+<!--                    <div class="error" >Номер мобильного телефона не указан</div>-->
                     <input type="text" placeholder="Телефон" name="Phone">
-                    <span class="error">*</span>
+<!--                    <div class="error" >Не указан телефон</div>-->
                 </div>
                 <button onClick="getElementById('win').style.display='none';">Отмена</button>
                 <button onClick="myAjax()">Добавить</button>
@@ -126,12 +124,17 @@
         <script>
             function myAjax() {
                 //нужно получить данные из полей ввода
-                var form      = $( '#modal_wnd_content' );
-                var FIO       = form.find( "input[name='FIO']" ).val();
-                var CellPhone = form.find( "input[name='CellPhone']" ).val();
-                var Phone     = form.find( "input[name='Phone']" ).val();
+                var $form      = $( '#modal_wnd_content' );
+                var FIO       = $form.find( "input[name='FIO']" ).val();
+                var CellPhone = $form.find( "input[name='CellPhone']" ).val();
+                var Phone     = $form.find( "input[name='Phone']" ).val();
 
                 //проверить переменные на пустоту
+                if (FIO == ''){
+                    $('#fio_error').html("Фамилия имя отчество не указаны");
+                    //установить фокус ввода
+                    return;
+                }
 
                 // и передать их скрипту который запишет их в файл
 
@@ -160,7 +163,7 @@
         <!-- Show modal window when button add was pressed -->
         <script>
             $("#btn_add").click(function(){
-                $("#win").removeAttr("style");
+                $('#win').removeAttr("style");
             });
         </script>
 
