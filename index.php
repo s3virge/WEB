@@ -122,14 +122,13 @@
 
         <script>
             function myAjax() {
-                //нужно получить данные из полей ввода и передать их скрипту который
+                //нужно получить данные из полей ввода
                 var form = $( '#modal_wnd_content' );
                 var FIO = form.find( "input[name='FIO']" ).val();
                 var CellPhone = form.find( "input[name='CellPhone']" ).val();
                 var Phone = form.find( "input[name='Phone']" ).val();
 
-1                //запишет их в файл
-                //затем перечитать файл что бы показать новые данные
+                // и передать их скрипту который запишет их в файл
 
                 $.ajax({
                     method: 'POST',
@@ -140,6 +139,8 @@
                          $('#win').attr('style','display:none');
                     }
                 });
+
+                //затем перечитать файл что бы показать новые данные
             }
         </script>
 
