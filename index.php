@@ -86,8 +86,11 @@
                 <h2>Добавить нововго сотрудника</h2>
                 <div id="modal_wnd_content">
                     <input type="text" autofocus placeholder="ФИО" name="FIO">
+                    <span class="error">*</span>
                     <input type="text" placeholder="Мобильный телефон" name="CellPhone">
+                    <span class="error">*</span>
                     <input type="text" placeholder="Телефон" name="Phone">
+                    <span class="error">*</span>
                 </div>
                 <button onClick="getElementById('win').style.display='none';">Отмена</button>
                 <button onClick="myAjax()">Добавить</button>
@@ -123,17 +126,19 @@
         <script>
             function myAjax() {
                 //нужно получить данные из полей ввода
-                var form = $( '#modal_wnd_content' );
-                var FIO = form.find( "input[name='FIO']" ).val();
+                var form      = $( '#modal_wnd_content' );
+                var FIO       = form.find( "input[name='FIO']" ).val();
                 var CellPhone = form.find( "input[name='CellPhone']" ).val();
-                var Phone = form.find( "input[name='Phone']" ).val();
+                var Phone     = form.find( "input[name='Phone']" ).val();
+
+                //проверить переменные на пустоту
 
                 // и передать их скрипту который запишет их в файл
 
                 $.ajax({
                     method: 'POST',
                     url: 'form.php',
-                    data: { name: "John", location: "Boston" },
+                    data: { fio: FIO, cellphone: CellPhone, phone: Phone },
                     success:function(msg ){
                         alert( "Data Saved: " + msg );
                          $('#win').attr('style','display:none');
