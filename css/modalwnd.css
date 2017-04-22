@@ -50,7 +50,7 @@
         background: WhiteSmoke;
     }
 
-        #fio_error{
+        .error{
             color: red;
         }
 

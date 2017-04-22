@@ -83,15 +83,15 @@
             <div class="modal_wnd">
                 <h2>Добавить нововго сотрудника</h2>
                 <div id="modal_wnd_content">
-                    <input type="text" autofocus placeholder="ФИО" name="FIO">
-                    <div id="fio_error">*</div>
-                    <input type="text" placeholder="Мобильный телефон" name="CellPhone">
-<!--                    <div class="error" >Номер мобильного телефона не указан</div>-->
-                    <input type="text" placeholder="Телефон" name="Phone">
-<!--                    <div class="error" >Не указан телефон</div>-->
+                    <input type="text" autofocus placeholder="ФИО" name="FIO" required>
+                    <div class="error">&nbsp</div>
+                    <input type="text" placeholder="Мобильный телефон" name="CellPhone" required>
+                    <div class="error" >&nbsp</div>
+                    <input type="text" placeholder="Телефон" name="Phone" required>
+                    <div class="error" >&nbsp</div>
                 </div>
                 <button onClick="getElementById('win').style.display='none';">Отмена</button>
-                <button onClick="myAjax()">Добавить</button>
+                <button onClick="addNewEmployee()">Добавить</button>
             </div>
         </div>
 
@@ -115,40 +115,71 @@
         <script>
             //Перечитываем файл со списком пользователем
             $("#btn_remove").click(function(){
+                updateEmployeeList();
+            });
+
+            function updateEmployeeList() {
                 $.ajax({url: "employee.txt", success: function(result){
                     $("#employee_list").html(result);
                 }});
-            });
-        </script>
+            }
 
-        <script>
-            function myAjax() {
-                //нужно получить данные из полей ввода
-                var $form      = $( '#modal_wnd_content' );
-                var FIO       = $form.find( "input[name='FIO']" ).val();
-                var CellPhone = $form.find( "input[name='CellPhone']" ).val();
-                var Phone     = $form.find( "input[name='Phone']" ).val();
+            function addNewEmployee() {
+                var $form            = $( '#modal_wnd_content' );
+                var $field_FIO       = $form.find( "input[name='FIO']" );
+                var $field_CellPhone = $form.find( "input[name='CellPhone']" );
+                var $field_Phone     = $form.find( "input[name='Phone']" );
 
                 //проверить переменные на пустоту
-                if (FIO == ''){
-                    $('#fio_error').html("Фамилия имя отчество не указаны");
-                    //установить фокус ввода
+                if (!isEmpty($field_FIO, "Фамилия Имя Отчество не указаны"))
                     return;
-                }
+
+                if (!isEmpty($field_CellPhone, "Номер мобильного телефона не указан"))
+                    return;
+
+                if (!isEmpty($field_Phone, "Не указан номер рабочето телефона"))
+                    return;
 
                 // и передать их скрипту который запишет их в файл
-
                 $.ajax({
                     method: 'POST',
                     url: 'form.php',
-                    data: { fio: FIO, cellphone: CellPhone, phone: Phone },
+                    data: {
+                        fio: $field_FIO.val(),
+                        cellphone: $field_CellPhone.val(),
+                        phone: $field_Phone.val()
+                    },
                     success:function(msg ){
-                        alert( "Data Saved: " + msg );
-                         $('#win').attr('style','display:none');
+                        //alert( "Data Saved: " + msg );
+                        alert("Новый сотрудник успешно добавлен.");
+
+                        $field_FIO.val("");
+                        $field_CellPhone.val("");
+                        $field_Phone.val("");
+
+                        $field_FIO.focus();
+                        //$('#win').attr('style','display:none');
                     }
                 });
 
                 //затем перечитать файл что бы показать новые данные
+                updateEmployeeList();
+            }
+
+            function isEmpty($obj, message) {
+                var result = null;
+
+                if ($obj.val() == '') {
+                    $obj.next().html(message);
+                    $obj.focus();
+                    result = false;
+                }
+                else {
+                    $obj.next().html("&nbsp");
+                    result = true;
+                }
+
+                return result;
             }
         </script>
 
