@@ -10,56 +10,69 @@ body {
     margin: 3em auto;
     /*background-color: #cc383c;*/
 }
+    /*все таблицы одинаковые*/
+    table {
+        font-family: arial, sans-serif;
+        width: 100%;
+        /*table-layout: fixed; !* Фиксированная ширина ячеек *!*/
+    }
 
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
+    td {
+        border: 1px solid #545454;
+        text-align: left;
+        padding: 8px;
+    }
 
-tr:hover {
-    background-color: #b4b3b1;
-    cursor: pointer;
-}
+    /*фон таблицы с назаниями столбцов*/
+    #table_header {
+        background-color: #6785dc;
+    }
 
-td, th {
-    border: 1px solid #545454;
-    text-align: left;
-    padding: 8px;
-}
+    #employee_list tr:hover {
+        background-color: #b4b3b1;
+        cursor: pointer;
+    }
 
-tr:first-child {
-    background-color: #6785dc;
-}
+    #employee_list tr.marked {
+        background-color:#f5f5f5;
+    }
 
-tr.marked {
-    background-color:#f5f5f5;
-}
+    /*ширина поля с фио*/
+    td:first-child {
+        width: 50%;
+        /*background-color: #b3d4fc;*/
+    }
 
-/*Блок с кнопками*/
-#buttons {
-    /*width: 70%;*/
-    margin: auto;
-    border: 1px solid #ffff00;
-    text-align: center;
-}
+    /*ширина столбца с рабочим номеном телефона*/
+    td:nth-child(2) {
+        width: 20%;
+        /*background-color: #b3d4fc;*/
+    }
 
-.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: black;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
+    /*Блок с кнопками*/
+    #buttons {
+        /*width: 70%;*/
+        margin: auto;
+        border: 1px solid #ffff00;
+        text-align: center;
+    }
 
-.button:hover {
-    color: white;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-}
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: black;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            color: white;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+        }
 

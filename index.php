@@ -22,20 +22,21 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <script>console.log("index.php was loaded");</script>
-
         <!--=============================================================================-->
         <!--                  Add your site or application content here                  -->
         <!--=============================================================================-->
 
         <div id="wrap">
-            <div id="employee_list">
-                <table>
+            <div>
+                <table id="table_header">
                     <tr>
-                        <th>Фамилия</th>
-                        <th>Мобильный</th>
-                        <th>Внутренний</th>
+                        <td>Фамилия</td>
+                        <td>Внутренний</td>
+                        <td>Мобильный</td>
                     </tr>
+                </table>
+                <table id="employee_list">
+                    <!--
                     <tr>
                         <td>Капустенко Иван Витальевич</td>
                         <td>050-123-45-67</td>
@@ -65,7 +66,7 @@
                         <td>Magazzini Alimentari Riuniti</td>
                         <td>Giovanni Rovelli</td>
                         <td>Italy</td>
-                    </tr>
+                    </tr>-->
                 </table>
             </div>
 
@@ -111,6 +112,13 @@
             ga('create','UA-XXXXX-X','auto');ga('send','pageview');
         </script>-->
 
+        <script>
+            window.onload = function() {
+                updateEmployeeList();
+            }
+
+        </script>
+
         <!-- Processing of button pressing -->
         <script>
             //Перечитываем файл со списком пользователем
@@ -149,15 +157,16 @@
                         cellphone: $field_CellPhone.val(),
                         phone: $field_Phone.val()
                     },
-                    success:function(msg ){
-                        //alert( "Data Saved: " + msg );
-                        alert("Новый сотрудник успешно добавлен.");
+                    success:function(){
+                        //alert("Новый сотрудник успешно добавлен.");
 
                         $field_FIO.val("");
                         $field_CellPhone.val("");
                         $field_Phone.val("");
 
                         $field_FIO.focus();
+
+                        //скрыть форму создания пользователей
                         //$('#win').attr('style','display:none');
                     }
                 });

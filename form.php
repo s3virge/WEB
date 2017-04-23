@@ -14,16 +14,20 @@ function disinfect($data) {
     return $data;
 }
 
+function writeToFile($str) {
+    $file = fopen("employee.txt", "a+") or die("Unable to open file!");
+    fwrite($file, $str);
+    fclose($file);
+}
+
 $fio = $cellphone = $phone = null;
 
 //$location = isset($_POST['location']) ? $_POST['location'] : null;
 
 $fio        = disinfect($_POST['fio']);
-$cellphone  = disinfect($_POST['cellphone']);
 $phone      = disinfect($_POST['phone']);
+$cellphone  = disinfect($_POST['cellphone']);
 
-//echo "FIO = $fio; CellPhone = $cellphone; Phone = $phone;";
-
-//сохранить данные в файл
+writeToFile("<tr>\n<td>$fio</td>\n<td>$phone</td>\n<td>$cellphone</td>\n</tr>\n");
 
 ?>
