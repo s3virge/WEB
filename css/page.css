@@ -21,11 +21,16 @@ body {
         border: 1px solid #545454;
         text-align: left;
         padding: 8px;
+        /*background-color: #f5f5f5;*/
     }
 
     /*фон таблицы с назаниями столбцов*/
     #table_header {
         background-color: #6785dc;
+    }
+
+    #employee_list tr {
+        background-color: #b3d4fc;
     }
 
     #employee_list tr:hover {

@@ -35,39 +35,7 @@
                         <td>Мобильный</td>
                     </tr>
                 </table>
-                <table id="employee_list">
-                    <!--
-                    <tr>
-                        <td>Капустенко Иван Витальевич</td>
-                        <td>050-123-45-67</td>
-                        <td>77</td>
-                    </tr>
-                    <tr>
-                        <td>Коломиец Анатолий Иванович</td>
-                        <td>050-123-45-67</td>
-                        <td>***</td>
-                    </tr>
-                    <tr>
-                        <td>Ходорковский Александр ******</td>
-                        <td>050-123-45-67</td>
-                        <td>***</td>
-                    </tr>
-                    <tr>
-                        <td>Кобзарь Виталий Владимирович</td>
-                        <td>050-683-12-26</td>
-                        <td>***</td>
-                    </tr>
-                    <tr>
-                        <td>Laughing Bacchus Winecellars</td>
-                        <td>Yoshi Tannamuri</td>
-                        <td>Canada</td>
-                    </tr>
-                    <tr>
-                        <td>Magazzini Alimentari Riuniti</td>
-                        <td>Giovanni Rovelli</td>
-                        <td>Italy</td>
-                    </tr>-->
-                </table>
+                <table id="employee_list"></table>
             </div>
 
             <div id="buttons">
@@ -91,14 +59,21 @@
                     <input type="text" placeholder="Телефон" name="Phone" required>
                     <div class="error" >&nbsp</div>
                 </div>
-                <button onClick="getElementById('win').style.display='none';">Отмена</button>
+                <button onClick="hideForm()">Отмена</button>
                 <button onClick="addNewEmployee()">Добавить</button>
             </div>
         </div>
 
         <!--======================================================================-->
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <!--<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>-->
+
+        <script
+                src="https://code.jquery.com/jquery-3.2.1.min.js"
+                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
 
@@ -111,101 +86,6 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X','auto');ga('send','pageview');
         </script>-->
-
-        <script>
-            window.onload = function() {
-                updateEmployeeList();
-            }
-
-        </script>
-
-        <!-- Processing of button pressing -->
-        <script>
-            //Перечитываем файл со списком пользователем
-            $("#btn_remove").click(function(){
-                updateEmployeeList();
-            });
-
-            function updateEmployeeList() {
-                $.ajax({url: "employee.txt", success: function(result){
-                    $("#employee_list").html(result);
-                }});
-            }
-
-            function addNewEmployee() {
-                var $form            = $( '#modal_wnd_content' );
-                var $field_FIO       = $form.find( "input[name='FIO']" );
-                var $field_CellPhone = $form.find( "input[name='CellPhone']" );
-                var $field_Phone     = $form.find( "input[name='Phone']" );
-
-                //проверить переменные на пустоту
-                if (!isEmpty($field_FIO, "Фамилия Имя Отчество не указаны"))
-                    return;
-
-                if (!isEmpty($field_CellPhone, "Номер мобильного телефона не указан"))
-                    return;
-
-                if (!isEmpty($field_Phone, "Не указан номер рабочето телефона"))
-                    return;
-
-                // и передать их скрипту который запишет их в файл
-                $.ajax({
-                    method: 'POST',
-                    url: 'form.php',
-                    data: {
-                        fio: $field_FIO.val(),
-                        cellphone: $field_CellPhone.val(),
-                        phone: $field_Phone.val()
-                    },
-                    success:function(){
-                        //alert("Новый сотрудник успешно добавлен.");
-
-                        $field_FIO.val("");
-                        $field_CellPhone.val("");
-                        $field_Phone.val("");
-
-                        $field_FIO.focus();
-
-                        //скрыть форму создания пользователей
-                        //$('#win').attr('style','display:none');
-                    }
-                });
-
-                //затем перечитать файл что бы показать новые данные
-                updateEmployeeList();
-            }
-
-            function isEmpty($obj, message) {
-                var result = null;
-
-                if ($obj.val() == '') {
-                    $obj.next().html(message);
-                    $obj.focus();
-                    result = false;
-                }
-                else {
-                    $obj.next().html("&nbsp");
-                    result = true;
-                }
-
-                return result;
-            }
-        </script>
-
-        <!-- Make table row selected -->
-        <script>
-            $('#employee_list').on('click','tr',function(){
-                $(this).addClass("marked");
-                $("tr").not(this).removeClass("marked");
-            });
-        </script>
-
-        <!-- Show modal window when button add was pressed -->
-        <script>
-            $("#btn_add").click(function(){
-                $('#win').removeAttr("style");
-            });
-        </script>
 
     </body>
 </html>
