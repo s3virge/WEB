@@ -34,13 +34,13 @@ function addNewEmployee() {
     var $field_Phone     = $form.find( "input[name='Phone']" );
 
     //проверить переменные на пустоту
-    if (!isEmpty($field_FIO, "Фамилия Имя Отчество не указаны"))
+    if (!isFeildEmpty($field_FIO, "Фамилия Имя Отчество не указаны"))
         return;
 
-    if (!isEmpty($field_CellPhone, "Номер мобильного телефона не указан"))
+    if (!isFeildEmpty($field_CellPhone, "Номер мобильного телефона не указан"))
         return;
 
-    if (!isEmpty($field_Phone, "Не указан номер рабочето телефона"))
+    if (!isFeildEmpty($field_Phone, "Не указан номер рабочето телефона"))
         return;
 
     // и передать их скрипту который запишет их в файл
@@ -70,7 +70,7 @@ function addNewEmployee() {
     });
 }
 
-function isEmpty($obj, message) {
+function isFeildEmpty($obj, message) {
     var result = null;
 
     if ($obj.val() == '') {
