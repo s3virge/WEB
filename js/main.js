@@ -1,6 +1,6 @@
 window.onload = function() {
     //updateEmployeeList();
-}
+};
 
 $(document).ready(function(){
     updateEmployeeList();
@@ -9,34 +9,31 @@ $(document).ready(function(){
 <!-- remove selected table row when button was pressed -->
 $("#btn_remove").click(function(){
     $('tr').remove('.marked');
+
     //console.log("button remove was pressed");
 
-
-//............ получить данные из таблицы .............................
+    // ............ получить данные из таблицы .....................
     var rowsArray = {};
     var i = 0;
-    $('#theTable tr').each(function({
-        rowsArray[i] = $(this).html(); // if you want to save the htmls of each row
+
+    $('#employee_list tr').each(function(){
+        rowsArray[i] = $(this).text();
+        //rowsArray[i] = $(this).html();
+        console.log(rowsArray[i]);
         i++;
     });
 
-//............ then use ajax to post this data ..........................
-    $.ajax({
+    //............ then use ajax to post this data .................
+    /*$.ajax({
         type: 'post',
         url: URL_TO_UR_SCRIPT,
         data: { myarray : rowsArray },
         success: function(result) {
             //ur success handler OPTIONAL
         }
-    });
+    });*/
 
     //updateEmployeeList();
-});
-
-<!-- Show modal window when button add was pressed -->
-$("#btn_add").click(function(){
-    //$('#win').removeAttr("style");
-    $('#win').show();
 });
 
 function updateEmployeeList() {
@@ -48,6 +45,10 @@ function updateEmployeeList() {
 }
 
 function addNewEmployee() {
+
+    //$('#win').removeAttr("style");
+    $('#win').show();
+
     var $form            = $( '#modal_wnd_content' );
     var $field_FIO       = $form.find( "input[name='FIO']" );
     var $field_CellPhone = $form.find( "input[name='CellPhone']" );

@@ -31,7 +31,7 @@ $cellphone  = disinfect($_POST['cellphone']);
 writeToFile("<tr>\n<td>$fio</td>\n<td>$phone</td>\n<td>$cellphone</td>\n</tr>\n");
 
 ///////////////////////////////////////////////////////////////
-In PHP side you do:
+/*In PHP side you do:
 
 $array = isset($_POST['myarray']) ? $_POST['myarray'] : false;
 if ($array) {
@@ -51,6 +51,6 @@ $array = array;
  //save serialized array in your DB
 NOTE/HINT: FYI do not use html table to lay out the form elements. Tables should be used for data representation. You could easily do samething using divs and css
 
-
+*/
 
 ?>
