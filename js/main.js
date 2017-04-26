@@ -24,16 +24,16 @@ $("#btn_remove").click(function(){
     });
 
     //............ then use ajax to post this data .................
-    /*$.ajax({
+    $.ajax({
         type: 'post',
-        url: URL_TO_UR_SCRIPT,
+        url: 'form.php',
         data: { myarray : rowsArray },
         success: function(result) {
-            //ur success handler OPTIONAL
+            updateEmployeeList();
         }
-    });*/
+    });
 
-    //updateEmployeeList();
+
 });
 
 function updateEmployeeList() {
