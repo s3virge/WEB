@@ -9,7 +9,27 @@ $(document).ready(function(){
 <!-- remove selected table row when button was pressed -->
 $("#btn_remove").click(function(){
     $('tr').remove('.marked');
-    console.log("button remove was pressed");
+    //console.log("button remove was pressed");
+
+
+//............ получить данные из таблицы .............................
+    var rowsArray = {};
+    var i = 0;
+    $('#theTable tr').each(function({
+        rowsArray[i] = $(this).html(); // if you want to save the htmls of each row
+        i++;
+    });
+
+//............ then use ajax to post this data ..........................
+    $.ajax({
+        type: 'post',
+        url: URL_TO_UR_SCRIPT,
+        data: { myarray : rowsArray },
+        success: function(result) {
+            //ur success handler OPTIONAL
+        }
+    });
+
     //updateEmployeeList();
 });
 
