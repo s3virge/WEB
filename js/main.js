@@ -10,8 +10,6 @@ $(document).ready(function(){
 $("#btn_remove").click(function(){
     $('tr').remove('.marked');
 
-    //console.log("button remove was pressed");
-
     // ............ получить данные из таблицы .....................
     var arrEmployees = {};
     var i = 0;
@@ -27,13 +25,12 @@ $("#btn_remove").click(function(){
     $.ajax({
         type: 'post',
         url: 'form.php',
-        data: { employees : arrEmployees },
+        data: { employees: arrEmployees },
+        //success: updateEmployeeList()
         success: function(result) {
-            updateEmployeeList();
+            console.log("result =" + result);
         }
-    });
-
-
+        });
 });
 
 $("#btn_add").click(function () {
@@ -44,26 +41,25 @@ $("#btn_add").click(function () {
 function updateEmployeeList() {
     /*$.ajax({url: "employee.txt", success: function(result){
      $("#listOfEmployees").html(result);
-     }});
-     */
+     }});*/
+
     $('#listOfEmployees').load("employee.txt");
 }
 
 function addNewEmployee() {
-
     var $form            = $( '#modal_wnd_content' );
     var $field_FIO       = $form.find( "input[name='FIO']" );
     var $field_CellPhone = $form.find( "input[name='CellPhone']" );
     var $field_Phone     = $form.find( "input[name='Phone']" );
 
     //проверить переменные на пустоту
-    if (!isFeildEmpty($field_FIO, "Фамилия Имя Отчество не указаны"))
+    if (!isFieldEmpty($field_FIO, "Фамилия Имя Отчество не указаны"))
         return;
 
-    if (!isFeildEmpty($field_CellPhone, "Номер мобильного телефона не указан"))
+    if (!isFieldEmpty($field_CellPhone, "Номер мобильного телефона не указан"))
         return;
 
-    if (!isFeildEmpty($field_Phone, "Не указан номер рабочето телефона"))
+    if (!isFieldEmpty($field_Phone, "Не указан номер рабочето телефона"))
         return;
 
     // и передать их скрипту который запишет их в файл
@@ -76,8 +72,6 @@ function addNewEmployee() {
             phone: $field_Phone.val()
         },
         success:function(){
-            //alert("Новый сотрудник успешно добавлен.");
-
             $field_FIO.val("");
             $field_CellPhone.val("");
             $field_Phone.val("");
@@ -93,7 +87,7 @@ function addNewEmployee() {
     });
 }
 
-function isFeildEmpty($obj, message) {
+function isFieldEmpty($obj, message) {
     var result = null;
 
     if ($obj.val() == '') {
