@@ -36,6 +36,11 @@ $("#btn_remove").click(function(){
 
 });
 
+$("#btn_add").click(function () {
+    //$('#win').removeAttr("style");
+    $('#win').show();
+});
+
 function updateEmployeeList() {
     /*$.ajax({url: "employee.txt", success: function(result){
      $("#listOfEmployees").html(result);
@@ -45,9 +50,6 @@ function updateEmployeeList() {
 }
 
 function addNewEmployee() {
-
-    //$('#win').removeAttr("style");
-    $('#win').show();
 
     var $form            = $( '#modal_wnd_content' );
     var $field_FIO       = $form.find( "input[name='FIO']" );
