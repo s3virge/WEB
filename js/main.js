@@ -13,13 +13,13 @@ $("#btn_remove").click(function(){
     //console.log("button remove was pressed");
 
     // ............ получить данные из таблицы .....................
-    var rowsArray = {};
+    var arrEmployees = {};
     var i = 0;
 
-    $('#employee_list tr').each(function(){
-        rowsArray[i] = $(this).text();
+    $('#listOfEmployees tr').each(function(){
+        arrEmployees[i] = $(this).text();
         //rowsArray[i] = $(this).html();
-        console.log(rowsArray[i]);
+        console.log(arrEmployees[i]);
         i++;
     });
 
@@ -27,7 +27,7 @@ $("#btn_remove").click(function(){
     $.ajax({
         type: 'post',
         url: 'form.php',
-        data: { myarray : rowsArray },
+        data: { employees : arrEmployees },
         success: function(result) {
             updateEmployeeList();
         }
@@ -38,10 +38,10 @@ $("#btn_remove").click(function(){
 
 function updateEmployeeList() {
     /*$.ajax({url: "employee.txt", success: function(result){
-     $("#employee_list").html(result);
+     $("#listOfEmployees").html(result);
      }});
      */
-    $('#employee_list').load("employee.txt");
+    $('#listOfEmployees').load("employee.txt");
 }
 
 function addNewEmployee() {
@@ -114,7 +114,7 @@ function hideForm() {
 }
 
 <!-- Make table row selected -->
-$('#employee_list').on('click','tr',function(){
+$('#listOfEmployees').on('click','tr',function(){
     $(this).addClass("marked");
     $("tr").not(this).removeClass("marked");
 });

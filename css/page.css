@@ -29,16 +29,16 @@ body {
         background-color: #6785dc;
     }
 
-    #employee_list tr {
+    #listOfEmployees tr {
         background-color: #b3d4fc;
     }
 
-    #employee_list tr:hover {
+    #listOfEmployees tr:hover {
         background-color: #b4b3b1;
         cursor: pointer;
     }
 
-    #employee_list tr.marked {
+    #listOfEmployees tr.marked {
         background-color:#f5f5f5;
     }
 

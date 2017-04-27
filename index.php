@@ -35,7 +35,7 @@
                         <td>Мобильный</td>
                     </tr>
                 </table>
-                <table id="employee_list"></table>
+                <table id="listOfEmployees"></table>
             </div>
 
             <div id="buttons">
