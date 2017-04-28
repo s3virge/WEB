@@ -9,15 +9,23 @@
 $Employees = isset($_POST['employees']) ? $_POST['employees'] : false;
 $fio       = isset($_POST['fio']) ? $_POST['fio'] : false;
 
-if ($Employees)
-{
-    /*$array = array();
+$fileName = "employee.txt";
 
-    foreach($_POST as $key => $value) {
-     //sanitize your input here
-     $array[$key] = $value;
-    }*/
+if ($Employees) {
+    $file = fopen($fileName, "w+");
 
+    //$Employees - массив сток
+
+    for ($c = 0; $c < count($Employees); $c++) {
+
+        fwrite($file, "<tr>$Employees[$c]</tr>\n");
+    }
+
+    /////////////////////////////////////
+    //не удаляется последняя запись.
+    ////////////////////////////////////
+
+    fclose($file);
 }
 else if ($fio) {
     $fio        = disinfect($_POST['fio']);

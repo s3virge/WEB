@@ -15,9 +15,9 @@ $("#btn_remove").click(function(){
     var i = 0;
 
     $('#listOfEmployees tr').each(function(){
-        arrEmployees[i] = $(this).text();
-        //rowsArray[i] = $(this).html();
-        console.log(arrEmployees[i]);
+        //arrEmployees[i] = $(this).text();
+        arrEmployees[i] = $(this).html();
+        //console.log(arrEmployees[i]);
         i++;
     });
 
