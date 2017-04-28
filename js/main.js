@@ -8,29 +8,34 @@ $(document).ready(function(){
 
 <!-- remove selected table row when button was pressed -->
 $("#btn_remove").click(function(){
-    $('tr').remove('.marked');
+    //.............. is the row selected ....................
+    if ($('tr').hasClass('marked')) {
+        //remove selected table row
+        $('tr').remove('.marked');
 
-    // ............ получить данные из таблицы .....................
-    var arrEmployees = {};
-    var i = 0;
+        // ............ получить данные из таблицы .....................
+        var arrEmployees = {};
+        var i = 0;
 
-    $('#listOfEmployees tr').each(function(){
-        //arrEmployees[i] = $(this).text();
-        arrEmployees[i] = $(this).html();
-        //console.log(arrEmployees[i]);
-        i++;
-    });
-
-    //............ then use ajax to post this data .................
-    $.ajax({
-        type: 'post',
-        url: 'form.php',
-        data: { employees: arrEmployees },
-        //success: updateEmployeeList()
-        success: function(result) {
-            console.log("result =" + result);
-        }
+        $('#listOfEmployees tr').each(function(){
+            //arrEmployees[i] = $(this).text();
+            arrEmployees[i] = $(this).html();
+            console.log("arrEmployees[i] = " + arrEmployees[i]);
+            i++;
         });
+
+        //............ then use ajax to post this data .................
+        $.ajax({
+            type: 'post',
+            url: 'form.php',
+            data: { employees: arrEmployees },
+            //success: updateEmployeeList()
+            // нет смысла перечитывать файл. В таблице уже видны изменения
+            success: function() {
+                console.log("list of employees was write successfully");
+            }
+        });
+    }
 });
 
 $("#btn_add").click(function () {

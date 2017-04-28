@@ -12,18 +12,13 @@ $fio       = isset($_POST['fio']) ? $_POST['fio'] : false;
 $fileName = "employee.txt";
 
 if ($Employees) {
-    $file = fopen($fileName, "w+");
+    $file = fopen($fileName, "w");
 
     //$Employees - массив сток
-
     for ($c = 0; $c < count($Employees); $c++) {
 
         fwrite($file, "<tr>$Employees[$c]</tr>\n");
     }
-
-    /////////////////////////////////////
-    //не удаляется последняя запись.
-    ////////////////////////////////////
 
     fclose($file);
 }
@@ -33,6 +28,16 @@ else if ($fio) {
     $cellphone  = disinfect($_POST['cellphone']);
 
     writeToFile("<tr>\n<td>$fio</td>\n<td>$phone</td>\n<td>$cellphone</td>\n</tr>\n");
+}
+
+//если обе переменные false значит скрипт вызван кнопкой Удалить и в таблице больше нет данных
+if (!$Employees && !$fio) {
+    //create empty file
+    $file = fopen($fileName, "w");
+    fclose($fileName);
+
+    //or delete the file
+    //unlink($fileName);
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -45,7 +50,7 @@ function disinfect($data) {
 }
 
 function writeToFile($str) {
-    $file = fopen("employee.txt", "a+") or die("Unable to open file!");
+    $file = fopen("employee.txt", "a") or die("Unable to open file!");
     fwrite($file, $str);
     fclose($file);
 }

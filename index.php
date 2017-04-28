@@ -60,7 +60,7 @@
                     <div class="error" >&nbsp</div>
                 </div>
                 <button onClick="hideForm()">Отмена</button>
-                <button onClick="addNewEmployee()">Добавить</button>
+                <button type="submit" onClick="addNewEmployee()">Добавить</button>
             </div>
         </div>
 
