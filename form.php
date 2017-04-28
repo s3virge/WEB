@@ -18,6 +18,8 @@ if ($Employees) {
     for ($c = 0; $c < count($Employees); $c++) {
 
         fwrite($file, "<tr>$Employees[$c]</tr>\n");
+        //разделить строку на слова
+        //обезопасить данные
     }
 
     fclose($file);
