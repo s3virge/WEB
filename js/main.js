@@ -43,6 +43,10 @@ $("#btn_add").click(function () {
     $('#win').show();
 });
 
+$("#btn_change").click(function(){
+    alert('Button edit was pressed');
+})
+
 function updateEmployeeList() {
     /*$.ajax({url: "employee.txt", success: function(result){
      $("#listOfEmployees").html(result);
