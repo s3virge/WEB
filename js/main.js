@@ -14,7 +14,7 @@ $("#btn_remove").click(function(){
         $('tr').remove('.marked');
 
         // ............ получить данные из таблицы .....................
-        var arrEmployees = {};
+        var arrEmployees = [];
         var i = 0;
 
         $('#listOfEmployees tr').each(function(){
@@ -44,7 +44,40 @@ $("#btn_add").click(function () {
 });
 
 $("#btn_change").click(function(){
-    alert('Button edit was pressed');
+    //проверить выбрана ли какая то строка в таблице
+    //если да
+    if ($('tr').hasClass('marked')) {
+        //то получить данные из выжеделенной строки
+        var arrRowText = [];
+        var i = 0;
+
+        $("tr.marked td").each(function(){
+            arrRowText[i] = $(this).text();
+            i++;
+        });
+
+        //вставить данные в поля ввода формы
+        var $modalForm            = $( '#modal_wnd_content' );
+        var $fieldFIO       = $modalForm.find( "input[name='FIO']" );
+        var $fieldCellPhone = $modalForm.find( "input[name='CellPhone']" );
+        var $fieldPhone     = $modalForm.find( "input[name='Phone']" );
+
+        console.log(arrRowText);
+
+        $fieldFIO.val(arrRowText[0]);
+        $fieldCellPhone.val(arrRowText[1]);
+        $fieldPhone.val(arrRowText[2]);
+
+        //изменить Заглавие окна
+
+        //показать форму редактирования
+        $('#win').show();
+    }
+    else {
+        //иначе вывести сообщение о необходимости выбора строки таблицы
+        alert("Нужно выбрать что редактировать...")
+    }
+
 })
 
 function updateEmployeeList() {
@@ -100,6 +133,7 @@ function isFieldEmpty($obj, message) {
     var result = null;
 
     if ($obj.val() == '') {
+        //показываем сообщение message
         $obj.next().html(message);
         $obj.focus();
         result = false;
@@ -112,13 +146,13 @@ function isFieldEmpty($obj, message) {
     return result;
 }
 
-<!-- hide the form -->
+// КНопка отмена скрывает форму
 function hideForm() {
     //document.getElementById('win').style.display='none';
     $('#win').hide();
 }
 
-<!-- Make table row selected -->
+//Make table row selected
 $('#listOfEmployees').on('click','tr',function(){
     $(this).addClass("marked");
     $("tr").not(this).removeClass("marked");

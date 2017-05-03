@@ -46,11 +46,11 @@
 
         </div>
 
-        <!--Скрытое по умолчанию модальное окно-->
+        <!-- Скрытое по умолчанию модальное окно добавления сотрудника -->
         <div id="win" style="display: none">
             <div class="overlap"></div>
             <div class="modal_wnd">
-                <h2>Добавить нововго сотрудника</h2>
+                <h2 id="title">Добавить нововго сотрудника</h2>
                 <div id="modal_wnd_content">
                     <input type="text" autofocus placeholder="ФИО" name="FIO" required>
                     <div class="error">&nbsp</div>
@@ -60,7 +60,7 @@
                     <div class="error" >&nbsp</div>
                 </div>
                 <button onClick="hideForm()">Отмена</button>
-                <button type="submit" onClick="addNewEmployee()">Добавить</button>
+                <button type="submit" onClick="addNewEmployee()">ОК</button>
             </div>
         </div>
 
