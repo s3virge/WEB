@@ -6,7 +6,7 @@ $(document).ready(function(){
     updateEmployeeList();
 });
 
-<!-- remove selected table row when button was pressed -->
+//==============  buttons =======================
 $("#btn_remove").click(function(){
     //.............. is the row selected ....................
     if ($('tr').hasClass('marked')) {
@@ -39,13 +39,13 @@ $("#btn_remove").click(function(){
 });
 
 $("#btn_add").click(function () {
-    //$('#win').removeAttr("style");
+    //изменить Заглавие окна
+    $("#title").text("Добавить нового сотрудника");
     $('#win').show();
 });
 
 $("#btn_change").click(function(){
-    //проверить выбрана ли какая то строка в таблице
-    //если да
+    //проверить выбрана ли какая то строка в таблице если да
     if ($('tr').hasClass('marked')) {
         //то получить данные из выжеделенной строки
         var arrRowText = [];
@@ -62,24 +62,24 @@ $("#btn_change").click(function(){
         var $fieldCellPhone = $modalForm.find( "input[name='CellPhone']" );
         var $fieldPhone     = $modalForm.find( "input[name='Phone']" );
 
-        console.log(arrRowText);
-
         $fieldFIO.val(arrRowText[0]);
         $fieldCellPhone.val(arrRowText[1]);
         $fieldPhone.val(arrRowText[2]);
 
         //изменить Заглавие окна
+        $("#title").text("Изменить данные сотрудника");
 
         //показать форму редактирования
         $('#win').show();
     }
     else {
         //иначе вывести сообщение о необходимости выбора строки таблицы
-        alert("Нужно выбрать что редактировать...")
+        alert("Данные какого сотрудника необходимо изменить?");
     }
 
 })
 
+//===============================================
 function updateEmployeeList() {
     /*$.ajax({url: "employee.txt", success: function(result){
      $("#listOfEmployees").html(result);
@@ -146,12 +146,50 @@ function isFieldEmpty($obj, message) {
     return result;
 }
 
-// КНопка отмена скрывает форму
+function changeEmployee() {
+    //изменить данные сотрудника в выбранной строке
+}
+
+// КНопка Отмена скрывает форму
 function hideForm() {
     //document.getElementById('win').style.display='none';
     $('#win').hide();
 }
 
+// Кнопка ОК
+function onOK(){
+
+    /*
+     $( "button" ).click(function() {
+     var value;
+
+     switch ( $( "button" ).index( this ) ) {
+     case 0 :
+     value = $( "div" ).data( "blah" );
+     break;
+     case 1 :
+     $( "div" ).data( "blah", "hello" );
+     value = "Stored!";
+     break;
+     case 2 :
+     $( "div" ).data( "blah", 86 );
+     value = "Stored!";
+     break;
+     case 3 :
+     $( "div" ).removeData( "blah" );
+     value = "Removed!";
+     break;
+     }
+
+     $( "span" ).text( "" + value );
+     });
+    */
+
+    //добавляем нового сотрудника или редактируем?
+    addNewEmployee();
+
+    changeEmployee();
+}
 //Make table row selected
 $('#listOfEmployees').on('click','tr',function(){
     $(this).addClass("marked");
