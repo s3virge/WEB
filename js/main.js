@@ -42,6 +42,9 @@ $("#btn_add").click(function () {
     //изменить Заглавие окна
     $("#title").text("Добавить нового сотрудника");
     $('#win').show();
+
+    var listItem = $( "button" ).index(this);
+    alert( "Index: " +  listItem );
 });
 
 $("#btn_change").click(function(){
@@ -71,6 +74,9 @@ $("#btn_change").click(function(){
 
         //показать форму редактирования
         $('#win').show();
+
+        var listItem = $( "button" ).index(this);
+        alert( "Index: " +  listItem );
     }
     else {
         //иначе вывести сообщение о необходимости выбора строки таблицы
@@ -184,6 +190,7 @@ function onOK(){
      $( "span" ).text( "" + value );
      });
     */
+
 
     //добавляем нового сотрудника или редактируем?
     addNewEmployee();
