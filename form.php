@@ -6,18 +6,17 @@
  * Time: 20:12
  */
 
-$Employees = isset($_POST['employees']) ? $_POST['employees'] : false;
+$employees = isset($_POST['employees']) ? $_POST['employees'] : false;
 $fio       = isset($_POST['fio']) ? $_POST['fio'] : false;
+$fileName  = "employee.txt";
 
-$fileName = "employee.txt";
-
-if ($Employees) {
+if ($employees) {
     $file = fopen($fileName, "w");
 
     //$Employees - массив сток
-    for ($c = 0; $c < count($Employees); $c++) {
+    for ($c = 0; $c < count($employees); $c++) {
 
-        fwrite($file, "<tr>$Employees[$c]</tr>\n");
+        fwrite($file, "<tr>$employees[$c]</tr>\n");
         //разделить строку на слова
         //обезопасить данные
     }
@@ -33,7 +32,7 @@ else if ($fio) {
 }
 
 //если обе переменные false значит скрипт вызван кнопкой Удалить и в таблице больше нет данных
-if (!$Employees && !$fio) {
+if (!$employees && !$fio) {
     //create empty file
     $file = fopen($fileName, "w");
     fclose($fileName);
@@ -43,7 +42,6 @@ if (!$Employees && !$fio) {
 }
 
 ///////////////////////////////////////////////////////////////////
-
 function disinfect($data) {
     $data = trim($data);
     $data = stripslashes($data);

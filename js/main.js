@@ -1,56 +1,31 @@
-window.onload = function() {
-    //updateEmployeeList();
-};
 
 $(document).ready(function(){
-    updateEmployeeList();
+    updateListOfEmployee();
+});
+
+//Make table row selected
+$('#listOfEmployees').on('click','tr',function(){
+    $(this).addClass("marked");
+    $("tr").not(this).removeClass("marked");
 });
 
 //==============  buttons =======================
-$("#btn_remove").click(function(){
-    //.............. is the row selected ....................
-    if ($('tr').hasClass('marked')) {
-        //remove selected table row
-        $('tr').remove('.marked');
-
-        // ............ получить данные из таблицы .....................
-        var arrEmployees = [];
-        var i = 0;
-
-        $('#listOfEmployees tr').each(function(){
-            //arrEmployees[i] = $(this).text();
-            arrEmployees[i] = $(this).html();
-            console.log("arrEmployees[i] = " + arrEmployees[i]);
-            i++;
-        });
-
-        //............ then use ajax to post this data .................
-        $.ajax({
-            type: 'post',
-            url: 'form.php',
-            data: { employees: arrEmployees },
-            //success: updateEmployeeList()
-            // нет смысла перечитывать файл. В таблице уже видны изменения
-            success: function() {
-                console.log("list of employees was write successfully");
-            }
-        });
-    }
-});
+var indexOfPressedButton = 0;
 
 $("#btn_add").click(function () {
     //изменить Заглавие окна
     $("#title").text("Добавить нового сотрудника");
     $('#win').show();
 
-    var listItem = $( "button" ).index(this);
-    alert( "Index: " +  listItem );
+    indexOfPressedButton = $( "button" ).index(this);
 });
+
+$("#btn_remove").click(removeEmployee());
 
 $("#btn_change").click(function(){
     //проверить выбрана ли какая то строка в таблице если да
     if ($('tr').hasClass('marked')) {
-        //то получить данные из выжеделенной строки
+        //то получить данные из выделенной строки
         var arrRowText = [];
         var i = 0;
 
@@ -60,7 +35,7 @@ $("#btn_change").click(function(){
         });
 
         //вставить данные в поля ввода формы
-        var $modalForm            = $( '#modal_wnd_content' );
+        var $modalForm      = $( '#modal_wnd_content' );
         var $fieldFIO       = $modalForm.find( "input[name='FIO']" );
         var $fieldCellPhone = $modalForm.find( "input[name='CellPhone']" );
         var $fieldPhone     = $modalForm.find( "input[name='Phone']" );
@@ -75,39 +50,29 @@ $("#btn_change").click(function(){
         //показать форму редактирования
         $('#win').show();
 
-        var listItem = $( "button" ).index(this);
-        alert( "Index: " +  listItem );
+        indexOfPressedButton = $( "button" ).index(this);
     }
     else {
         //иначе вывести сообщение о необходимости выбора строки таблицы
         alert("Данные какого сотрудника необходимо изменить?");
     }
-
-})
+});
 
 //===============================================
-function updateEmployeeList() {
-    /*$.ajax({url: "employee.txt", success: function(result){
-     $("#listOfEmployees").html(result);
-     }});*/
-
-    $('#listOfEmployees').load("employee.txt");
-}
-
-function addNewEmployee() {
+function addEmployee() {
     var $form            = $( '#modal_wnd_content' );
     var $field_FIO       = $form.find( "input[name='FIO']" );
     var $field_CellPhone = $form.find( "input[name='CellPhone']" );
     var $field_Phone     = $form.find( "input[name='Phone']" );
 
     //проверить переменные на пустоту
-    if (!isFieldEmpty($field_FIO, "Фамилия Имя Отчество не указаны"))
+    if (isFieldEmpty($field_FIO, "Фамилия Имя Отчество не указаны"))
         return;
 
-    if (!isFieldEmpty($field_CellPhone, "Номер мобильного телефона не указан"))
+    if (isFieldEmpty($field_CellPhone, "Номер мобильного телефона не указан"))
         return;
 
-    if (!isFieldEmpty($field_Phone, "Не указан номер рабочето телефона"))
+    if (isFieldEmpty($field_Phone, "Не указан номер рабочето телефона"))
         return;
 
     // и передать их скрипту который запишет их в файл
@@ -120,19 +85,63 @@ function addNewEmployee() {
             phone: $field_Phone.val()
         },
         success:function(){
+
+            //можно добавить новую строку в конец таблицы
+
             $field_FIO.val("");
             $field_CellPhone.val("");
             $field_Phone.val("");
 
             $field_FIO.focus();
 
-            //скрыть форму создания пользователей
-            //$('#win').attr('style','display:none');
-
             //затем перечитать файл что бы показать новые данные
-            updateEmployeeList();
+            updateListOfEmployee();
         }
     });
+}
+
+function removeEmployee() {
+    //is the row selected
+    if ($('tr').hasClass('marked')) {
+        //remove selected table row
+        $('.marked').remove();
+
+        getTableDateAndSave();
+    }
+}
+
+function changeEmployee() {
+    //получить данные из полей ввода формы
+    var $form            = $( '#modal_wnd_content' );
+    var $input_FIO       = $form.find( "input[name='FIO']" );
+    var $input_CellPhone = $form.find( "input[name='CellPhone']" );
+    var $input_Phone     = $form.find( "input[name='Phone']" );
+
+    //проверить переменные на пустоту
+    if (isFieldEmpty($input_FIO, "Фамилия Имя Отчество не указаны"))
+        return;
+
+    if (isFieldEmpty($input_CellPhone, "Номер мобильного телефона не указан"))
+        return;
+
+    if (isFieldEmpty($input_Phone, "Не указан номер рабочето телефона"))
+        return;
+
+    $("tr.marked").html(
+        "<td>" + $input_FIO.val()       + "</td>" +
+        "<td>" + $input_CellPhone.val() + "</td>" +
+        "<td>" + $input_Phone.val()     + "</td>"
+    );
+
+    getTableDateAndSave();
+}
+
+function updateListOfEmployee() {
+    /*$.ajax({url: "employee.txt", success: function(result){
+     $("#listOfEmployees").html(result);
+     }});*/
+
+    $('#listOfEmployees').load("employee.txt");
 }
 
 function isFieldEmpty($obj, message) {
@@ -142,18 +151,39 @@ function isFieldEmpty($obj, message) {
         //показываем сообщение message
         $obj.next().html(message);
         $obj.focus();
-        result = false;
+        result = true;
     }
     else {
         $obj.next().html("&nbsp");
-        result = true;
+        result = false;
     }
 
     return result;
 }
 
-function changeEmployee() {
-    //изменить данные сотрудника в выбранной строке
+function getTableDateAndSave() {
+    //получить данные из таблицы
+    var arrEmployees = [];
+    var i = 0;
+
+    $('#listOfEmployees tr').each(function(){
+        //arrEmployees[i] = $(this).text();
+        arrEmployees[i] = $(this).html();
+        console.log("arrEmployees[i] = " + arrEmployees[i]);
+        i++;
+    });
+
+    //then use ajax to post this data
+    $.ajax({
+        type: 'post',
+        url: 'form.php',
+        data: { employees: arrEmployees },
+        //success: updateListOfEmployee()
+        // нет смысла перечитывать файл. В таблице уже видны изменения
+        success: function() {
+            console.log("list of employees was write successfully");
+        }
+    });
 }
 
 // КНопка Отмена скрывает форму
@@ -162,43 +192,17 @@ function hideForm() {
     $('#win').hide();
 }
 
-// Кнопка ОК
+// Кнопка ОК модального окна
 function onOK(){
+    switch (indexOfPressedButton){
+        case 0:
+            //добавляем нового сотрудника или редактируем?
+            addEmployee();
+            break;
 
-    /*
-     $( "button" ).click(function() {
-     var value;
-
-     switch ( $( "button" ).index( this ) ) {
-     case 0 :
-     value = $( "div" ).data( "blah" );
-     break;
-     case 1 :
-     $( "div" ).data( "blah", "hello" );
-     value = "Stored!";
-     break;
-     case 2 :
-     $( "div" ).data( "blah", 86 );
-     value = "Stored!";
-     break;
-     case 3 :
-     $( "div" ).removeData( "blah" );
-     value = "Removed!";
-     break;
-     }
-
-     $( "span" ).text( "" + value );
-     });
-    */
-
-
-    //добавляем нового сотрудника или редактируем?
-    addNewEmployee();
-
-    changeEmployee();
+        case 2:
+            changeEmployee();
+            hideForm();
+            break;
+    }
 }
-//Make table row selected
-$('#listOfEmployees').on('click','tr',function(){
-    $(this).addClass("marked");
-    $("tr").not(this).removeClass("marked");
-});
